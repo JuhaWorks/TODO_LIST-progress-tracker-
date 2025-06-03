@@ -1,0 +1,374 @@
+:root {
+  /* Light mode colors */
+  --bg-color: #f4f5fb;
+  --text-color: #2c3e50;
+  --primary-color: #3498db;
+  --primary-hover-color: #2980b9;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --placeholder-color: #7f8c8d;
+  --priority-high: #e74c3c;
+  --priority-medium-bg: #f39c12;
+  --priority-medium-text: #2c3e50;
+  --priority-low: #27ae60;
+  --glow-color: #3498db;
+  --highlight-color: #ff9f43;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  padding: 2.5rem 1.5rem 4rem;
+  min-height: 100vh;
+  transition: background-color 0.6s ease, color 0.6s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark {
+  --bg-color: #2c3e50;
+  --text-color: #ecf0f1;
+  --primary-color: #3498db;
+  --primary-hover-color: #2980b9;
+  --card-bg: rgba(44, 62, 80, 0.85);
+  --card-shadow: rgba(0, 0, 0, 0.6);
+  --placeholder-color: #95a5a6;
+  --priority-high: #ff4f57;
+  --priority-medium-bg: #f9c646;
+  --priority-medium-text: #34495e;
+  --priority-low: #16a085;
+  --glow-color: #3498db;
+}
+
+/* Ensure the category input field text is visible */
+#categoryInput {
+  color: var(--text-color);
+  background-color: var(--card-bg);
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#categoryInput::placeholder {
+  color: var(--placeholder-color);
+  opacity: 1;
+}
+
+#categoryInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+/* Container with glassmorphic effect */
+.list-group.shadow {
+  background-color: var(--card-bg);
+  box-shadow: 0 8px 32px var(--card-shadow), inset 0 0 60px rgba(255 255 255 / 0.15);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  backdrop-filter: saturate(180%) blur(15px);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* Typography for headers and inputs */
+h1, h2, button, input, select, label, span {
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.5s ease;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.7rem 1.5rem;
+  box-shadow: 0 4px 15px var(--glow-color);
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, var(--primary-hover-color), var(--primary-color));
+  box-shadow: 0 6px 20px var(--glow-color);
+  outline: none;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Todo items with glass effect */
+.todo-item {
+  background-color: var(--card-bg);
+  box-shadow: 0 8px 24px var(--card-shadow), inset 0 0 20px rgba(255 255 255 / 0.25);
+  border-radius: 1.25rem;
+  padding: 1.25rem 2rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  backdrop-filter: saturate(180%) blur(10px);
+  transition: background-color 0.6s ease, box-shadow 0.6s ease, transform 0.3s ease;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.todo-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px var(--glow-color), inset 0 0 60px rgba(255 255 255 / 0.35);
+}
+
+.todo-item.completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+  color: var(--text-color);
+}
+
+/* Checkbox styling */
+.todo-item input[type="checkbox"] {
+  width: 28px;
+  height: 28px;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  accent-color: var(--glow-color);
+  flex-shrink: 0;
+  transition: filter 0.3s ease;
+}
+
+.todo-item input[type="checkbox"]:hover {
+  filter: drop-shadow(0 0 8px var(--glow-color));
+}
+
+/* Task Text */
+.task-text {
+  flex-grow: 1;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-color);
+  word-break: break-word;
+  outline-offset: 6px;
+  line-height: 1.4;
+  user-select: text;
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+  min-width: 150px;
+  max-width: 60vw;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Due date */
+.due-date {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #899bbd;
+  margin-left: auto;
+  min-width: 150px;
+  white-space: nowrap;
+  user-select: none;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.due-date.overdue {
+  color: var(--priority-high);
+  text-shadow: 0 0 14px var(--priority-high);
+  font-weight: 900;
+}
+
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3em 1.6em;
+  min-width: 100px;
+  box-sizing: border-box;
+  border-radius: 1.5rem;
+  font-weight: 900;
+  font-size: 1.05rem;
+  margin-left: 2rem;
+  white-space: nowrap;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 -5px 0 rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  line-height: 1;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.priority-high {
+  background: linear-gradient(135deg, #e74c3c, #ff6b81);
+}
+
+.priority-medium {
+  background: linear-gradient(135deg, #f39c12, #ffec50);
+}
+
+.priority-low {
+  background: linear-gradient(135deg, #27ae60, #50fbbf);
+}
+
+/* Category badge */
+.category-badge {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
+  color: #dde6f7;
+  font-size: 0.9rem;
+  padding: 0.4em 1.1em;
+  border-radius: 2.5rem;
+  margin-left: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  user-select: none;
+  box-shadow: 0 8px 15px rgba(255, 255, 255, 0.4);
+  backdrop-filter: saturate(180%) blur(8px);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease, transform 0.3s ease;
+  cursor: default;
+}
+
+.category-badge:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%);
+  box-shadow: 0 12px 25px rgba(255, 255, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.8);
+  color: #f0f8ff;
+  transform: scale(1.05);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  width: 100px;
+  height: 10px;
+  appearance: none;
+  background: #d6d6d6;
+  border-radius: 5px;
+}
+
+.progress-bar::-webkit-progress-bar {
+  background: #f4f5fb;
+}
+
+.progress-bar::-webkit-progress-value {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+/* Mic Icon Animation */
+#voiceIcon.listening {
+  animation: pulse 1s infinite;
+  color: var(--primary-color);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Delete button */
+button.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  margin-left: 2.5rem;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 0 6px var(--primary-color));
+  transition: color 0.5s ease, transform 0.35s ease;
+}
+
+button.delete-btn:hover {
+  color: #ff4c4c;
+  filter: drop-shadow(0 0 12px #ff4c4c);
+  transform: scale(1.3) rotate(15deg);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .todo-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .task-text {
+    font-size: 1.25rem;
+  }
+
+  .due-date, .priority-badge {
+    margin-left: 0;
+    font-size: 1rem;
+  }
+
+  .todo-item {
+    padding: 1rem 1.5rem;
+  }
+
+  .btn-primary {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .list-group.shadow {
+    padding: 1rem;
+  }
+
+  .category-badge {
+    font-size: 0.8rem;
+  }
+}
+
+/* Scrollbar */
+#todoList::-webkit-scrollbar {
+  width: 14px;
+}
+
+#todoList::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+/* Focus visible for accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 4px;
+  box-shadow: 0 0 15px var(--primary-color);
+}

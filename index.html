@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jaantush List - Advanced Todo App</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="light">
+
+  <main class="container my-5" role="main" aria-label="Advanced Todo List Application">
+    <!-- Header Section -->
+    <header class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4" role="banner">
+      <h1 class="h3 fw-bold text-gradient-primary" tabindex="0">Jaantush List</h1>
+
+      <form class="d-flex flex-grow-1 flex-md-grow-0" role="search" aria-label="Search tasks">
+        <input
+          type="search"
+          id="searchInput"
+          class="form-control form-control-lg shadow-sm rounded-pill border-0"
+          placeholder="Search tasks..."
+          aria-label="Search tasks"
+          autocomplete="off"
+          spellcheck="false"
+          aria-live="polite"
+        />
+      </form>
+
+      <button
+        id="darkModeToggle"
+        class="btn btn-outline-primary btn-lg rounded-pill shadow-sm"
+        aria-pressed="false"
+        aria-label="Toggle Dark Mode"
+        title="Toggle Dark Mode"
+        type="button"
+      >
+        🌙 Dark Mode
+      </button>
+    </header>
+
+    <!-- Buttons for Export, Import, and Voice Command -->
+    <section class="d-flex flex-wrap justify-content-center gap-4 my-4" aria-labelledby="taskActions">
+      <h2 id="taskActions" class="visually-hidden">Task Actions</h2>
+      <button class="btn btn-outline-secondary btn-lg rounded-pill shadow" id="exportBtn" aria-label="Export Tasks" type="button">
+        Export Tasks
+      </button>
+      <button class="btn btn-outline-success btn-lg rounded-pill shadow" id="importBtn" aria-label="Import Tasks" type="button">
+        Import Tasks
+      </button>
+      <button class="btn btn-outline-info btn-lg rounded-pill shadow" id="voiceCommandBtn" aria-label="Add Task via Voice" type="button">
+        🎤 Voice Command
+        <span id="voiceIcon" class="ms-2"></span>
+      </button>
+    </section>
+
+    <!-- Add Task Section -->
+    <section aria-labelledby="addTaskTitle" class="mb-5">
+      <h2 id="addTaskTitle" class="visually-hidden">Add New Task</h2>
+      <form id="todoForm" class="row g-3" novalidate aria-label="Add new task form">
+        <div class="col-12 col-md-6 col-lg-5">
+          <label for="todoInput" class="form-label visually-hidden">Task description</label>
+          <input
+            type="text"
+            id="todoInput"
+            class="form-control form-control-lg shadow-sm rounded-pill"
+            placeholder="Task description"
+            required
+            minlength="2"
+            autocomplete="off"
+            aria-required="true"
+          />
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+          <label for="dueDateInput" class="form-label visually-hidden">Due date (optional)</label>
+          <input
+            type="date"
+            id="dueDateInput"
+            class="form-control form-control-lg shadow-sm rounded-pill"
+            aria-label="Due date (optional)"
+          />
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+          <label for="prioritySelect" class="form-label visually-hidden">Priority</label>
+          <select
+            id="prioritySelect"
+            class="form-select form-select-lg shadow-sm rounded-pill"
+            aria-label="Select priority"
+          >
+            <option value="low" selected>Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-2">
+          <label for="categoryInput" class="form-label visually-hidden">Category (optional)</label>
+          <input
+            type="text"
+            id="categoryInput"
+            class="form-control form-control-lg shadow-sm rounded-pill"
+            placeholder="Category (optional)"
+            aria-label="Category (optional)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-1 d-grid">
+          <button
+            type="submit"
+            id="addBtn"
+            class="btn btn-primary btn-lg rounded-pill shadow"
+            aria-label="Add Task"
+          >
+            Add Task
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Task Filters Section -->
+    <nav aria-label="Task filters" class="mb-4">
+      <ul id="filters" class="nav nav-pills nav-fill shadow-sm rounded-pill bg-white" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active rounded-pill"
+            id="filter-all"
+            data-filter="all"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            tabindex="0"
+          >All</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link rounded-pill"
+            id="filter-active"
+            data-filter="active"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >Active</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link rounded-pill"
+            id="filter-completed"
+            data-filter="completed"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >Completed</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link rounded-pill"
+            id="filter-overdue"
+            data-filter="overdue"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >Overdue</button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Task List Section -->
+    <section id="todoSection" aria-live="polite" aria-relevant="additions removals" tabindex="0" aria-label="Task list">
+      <div class="form-check mb-3 d-flex align-items-center">
+        <input class="form-check-input" type="checkbox" id="bulkSelect" aria-label="Select all tasks" />
+        <label class="form-check-label ms-2" for="bulkSelect">Select All</label>
+      </div>
+
+      <ul id="todoList" class="list-group shadow rounded-4 p-3">
+        <!-- JS Injected Tasks -->
+      </ul>
+    </section>
+
+    <!-- Clear Tasks Section -->
+    <section class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-between my-5">
+      <button class="btn btn-warning btn-lg rounded-pill shadow" id="clearCompletedBtn" aria-label="Clear Completed Tasks" type="button">
+        Clear Completed
+      </button>
+      <button class="btn btn-danger btn-lg rounded-pill shadow" id="clearAllBtn" aria-label="Clear All Tasks" type="button">
+        Clear All
+      </button>
+    </section>
+
+    <!-- Summary Section -->
+    <section class="d-flex flex-wrap justify-content-between align-items-center gap-3 px-3 pb-5 border-top border-2 border-opacity-10">
+      <div id="calendar" class="fs-5 fw-semibold text-primary" aria-live="polite" tabindex="0" role="contentinfo" aria-label="Current date"></div>
+      <div id="timer" class="fs-5 fw-semibold text-primary" aria-live="polite" tabindex="0" role="contentinfo" aria-label="Current time"></div>
+      <div id="progressSummary" class="fs-6 text-muted" tabindex="0" role="contentinfo" aria-label="Progress summary"></div>
+    </section>
+
+    <!-- Undo Snackbar -->
+    <div id="undoSnackbar" class="snackbar" role="alert" aria-live="assertive" aria-atomic="true" hidden>
+      Task deleted.
+      <button id="undoBtn" aria-label="Undo delete">Undo</button>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
